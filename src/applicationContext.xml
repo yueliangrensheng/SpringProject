@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--    导入jdbc配置-->
+    <import resource="applicationContext_jdbc.xml"></import>
+
+    <!--  导入其他的 bean配置  -->
+    <import resource="applicationContext_user.xml"></import>
+
+
+    <!-- 导入 注解 配置-->
+    <import resource="applicationContext_annotation.xml"></import>
+    <!-- 导入 全注解 配置-->
+    <import resource="applicationContext_all_annotation.xml"></import>
+</beans>

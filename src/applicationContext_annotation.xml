@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <!--    Spring IOC 注解
+
+        1.依赖 spring-aop-5.0.4.RELEASE.jar
+        2.在applicationContext.xml配置中配置 注解扫描器；需要<context:component-scan>标签
+        3.配置注解组件
+            需要在目标类上 添加注解 @Component ；
+            并在给类中的属性 添加注解：@Value 设置属性值。
+    -->
+    <context:component-scan base-package="com.yazao.spring.annotation"></context:component-scan>
+
+</beans>
