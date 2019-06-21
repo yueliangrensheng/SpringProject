@@ -1,6 +1,6 @@
 package com.yazao.spring.test;
 
-import com.yazao.spring.User;
+import com.yazao.spring.domain.UserImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +14,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class SpringJunit {
 
     @Autowired
-    private User user;
+    private UserImpl user;
     @Autowired
-    private User user2;
+    private UserImpl user2;
 
     @Test
     public void test1(){

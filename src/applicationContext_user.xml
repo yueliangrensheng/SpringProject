@@ -4,9 +4,9 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="user" class="com.yazao.spring.User" scope="singleton" init-method="init" destroy-method="destroy"></bean>
+    <bean id="user" class="com.yazao.spring.domain.UserImpl" scope="singleton" init-method="init" destroy-method="destroy"></bean>
 
-    <bean id="user2" class="com.yazao.spring.User" scope="prototype" init-method="init" destroy-method="destroy"></bean>
+    <bean id="user2" class="com.yazao.spring.domain.UserImpl" scope="prototype" init-method="init" destroy-method="destroy"></bean>
 
 
 </beans>
