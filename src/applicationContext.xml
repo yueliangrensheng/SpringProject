@@ -15,4 +15,7 @@
     <import resource="applicationContext_annotation.xml"></import>
     <!-- 导入 全注解 配置-->
     <import resource="applicationContext_all_annotation.xml"></import>
+
+    <!--    导入aop 配置 -->
+    <import resource="applicationContext_aop.xml"></import>
 </beans>

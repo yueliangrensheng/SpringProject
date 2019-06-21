@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!-- 目标类 （有切入点）-->
+<!--    <bean id="user" class="com.yazao.spring.domain.UserImpl"></bean>--> <!-- 配置文件中以及加载过了，这里注释掉 -->
+    <!-- 切面类 （有通知/增强）-->
+    <bean id="myAspect" class="com.yazao.spring.aspect.MyAspect"></bean>
+
+
+    <!-- 配置织入 （增强方法和 原始方法组织在一起）(生成代理对象的过程叫织入)-->
+    <aop:config proxy-target-class="true"><!-- proxy-target-class="true" 这里的详细介绍在 SpringJunit.java类中 -->
+        <!-- 配置 切入点
+
+            public void com.yazao.spring.domain.UserImpl.run()
+
+        -->
+        <aop:pointcut id="pointcut_run" expression="execution(public void com.yazao.spring.domain.UserImpl.run())"/>
+        <aop:pointcut id="pointcut_add" expression="execution(void com.yazao.spring.domain.UserImpl.add())"/>
+        <aop:pointcut id="pointcut_delete" expression="execution(* com.yazao.spring.domain.UserImpl.delete())"></aop:pointcut>
+
+        <!-- 配置切面 -->
+        <aop:aspect ref="myAspect">
+            <aop:before method="before" pointcut-ref="pointcut_run"></aop:before>
+
+            <aop:after-returning method="afterReturning" pointcut-ref="pointcut_add"></aop:after-returning>
+            <aop:after-throwing method="throwMethod" pointcut-ref="pointcut_add"></aop:after-throwing>
+            <aop:after method="after" pointcut-ref="pointcut_add"></aop:after>
+
+
+            <aop:around method="around" pointcut-ref="pointcut_delete"></aop:around>
+
+        </aop:aspect>
+    </aop:config>
+
+</beans>

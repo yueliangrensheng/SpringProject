@@ -7,4 +7,6 @@ public interface IUser {
     public void delete();
     public void update();
     public void query();
+
+    public String getName();
 }
