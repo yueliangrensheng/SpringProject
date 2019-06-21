@@ -1,10 +1,12 @@
 package com.yazao.spring.test;
 
 import com.yazao.spring.domain.IUser;
+import com.yazao.spring.domain.PersonImpl;
 import com.yazao.spring.domain.UserImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -33,6 +35,9 @@ public class SpringJunit {
     @Autowired
     private IUser user2;
 
+   @Resource(name = "personImpl")
+    private IUser personImpl; //这里使用 实现类或者接口 都可以来定义 user。因为这里是采用 <aop:aspectj-autoproxy></aop:aspectj-autoproxy> 注解方式（Spring会自动处理采用JDK动态代理或者cglib代理）
+
     @Test
     public void test1(){
 //        user2.run();
@@ -41,6 +46,12 @@ public class SpringJunit {
         user.delete();
         user.add();
 
+    }
+
+
+    @Test
+    public void test2(){
+        personImpl.run();
     }
 
 }

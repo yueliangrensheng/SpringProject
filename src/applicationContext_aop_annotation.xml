@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!-- 准备工作: 导入aop(约束)命名空间 -->
+
+    <!-- 目标类 （有切入点）-->
+    <bean id="personImpl" class="com.yazao.spring.domain.PersonImpl"></bean>
+    <!-- 切面类 （有通知/增强）-->
+    <bean id="myAspect2" class="com.yazao.spring.aspect.MyAspect2"></bean>
+
+
+    <!-- 配置织入 （增强方法和 原始方法组织在一起）(生成代理对象的过程叫织入)-->
+    <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+
+</beans>
