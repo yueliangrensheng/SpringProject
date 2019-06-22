@@ -1,5 +1,7 @@
 package com.yazao.spring.test;
 
+import com.sun.xml.internal.xsom.parser.AnnotationContext;
+import com.yazao.spring.allannotation.SpringConfig;
 import com.yazao.spring.domain.IUser;
 import com.yazao.spring.domain.PersonImpl;
 import com.yazao.spring.domain.UserImpl;
@@ -7,6 +9,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -36,7 +40,7 @@ public class SpringJunit {
     private IUser user2;
 
    @Resource(name = "personImpl")
-    private IUser personImpl; //这里使用 实现类或者接口 都可以来定义 user。因为这里是采用 <aop:aspectj-autoproxy></aop:aspectj-autoproxy> 注解方式（Spring会自动处理采用JDK动态代理或者cglib代理）
+    private PersonImpl personImpl; //这里使用 实现类或者接口 都可以来定义 user。因为这里是采用 <aop:aspectj-autoproxy></aop:aspectj-autoproxy> 注解方式（Spring会自动处理采用JDK动态代理或者cglib代理）
 
     @Test
     public void test1(){
@@ -51,6 +55,19 @@ public class SpringJunit {
 
     @Test
     public void test2(){
+
+        //使用全注解
+        ApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
+        IUser personImpl = (IUser) context.getBean("personImpl");
+
+        personImpl.run();
+    }
+
+    @Test
+    public void test3(){
+
+        //使用注解 + xml
+
         personImpl.run();
     }
 

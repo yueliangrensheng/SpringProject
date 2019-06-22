@@ -1,5 +1,8 @@
 package com.yazao.spring.domain;
 
+import org.springframework.stereotype.Component;
+
+@Component(value = "personImpl")
 public class PersonImpl implements IUser{
 
     public PersonImpl() {

@@ -2,8 +2,10 @@ package com.yazao.spring.aspect;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
+import org.springframework.stereotype.Component;
 
 @Aspect
+@Component(value = "myAspect2")
 //切面类
 public class MyAspect2 {
 
