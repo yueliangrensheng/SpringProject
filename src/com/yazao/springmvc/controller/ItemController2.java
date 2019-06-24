@@ -33,8 +33,9 @@ public class ItemController2{
         modelAndView.addObject("itemList", list);//相当于是把数据放到了request域
 
 
-        //设置逻辑视图：就是jsp路径
-        modelAndView.setViewName("/WEB-INF/jsp/itemList.jsp");
+        //设置逻辑视图：就是jsp路径: "/WEB-INF/jsp/itemList.jsp"
+        //通过在springmvc.xml中配置视图解析器的prefix和suffix，来在code中简写配置视图的路径
+        modelAndView.setViewName("itemList");
         return modelAndView;
     }
 }
