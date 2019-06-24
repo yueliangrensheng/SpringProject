@@ -11,7 +11,6 @@
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <mvc:annotation-driven/>
 
     <!--
         传统方式：需要申明 相关Controller
@@ -45,6 +44,10 @@
         ViewResolver（视图解析器）：
             org.springframework.web.servlet.view.InternalResourceViewResolver
     -->
+
+
+    <!-- 注解驱动 替代了上面的 HandlerMapping 和 HandlerAdapter  -->
+    <mvc:annotation-driven/>
 
     <!--
         配置 视图解析器 的前缀和后缀。目的：在 ModelAndView 中页面跳转的简化
