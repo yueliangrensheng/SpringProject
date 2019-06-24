@@ -27,6 +27,26 @@
 
 
     <!--
+        SpringMVC 三大组件：
+        与DispatcherServlet类 同目录下的 DispatcherServlet.properties 文件中定义了 SpringMVC的三大核心组件：
+
+        HandlerMapping、HandlerAdapter、ViewResolver
+
+
+        HandlerMapping（处理器映射器）：
+             org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping（传统开发方式）
+             org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping（注解开发方式）
+
+        HandlerAdapter（处理器适配器）：
+            org.springframework.web.servlet.mvc.HttpRequestHandlerAdapter
+	        org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter（传统开发方式）
+	        org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter注解开发方式）
+
+        ViewResolver（视图解析器）：
+            org.springframework.web.servlet.view.InternalResourceViewResolver
+    -->
+
+    <!--
         配置 视图解析器 的前缀和后缀。目的：在 ModelAndView 中页面跳转的简化
     -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
