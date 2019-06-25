@@ -23,6 +23,7 @@
         注解方式：需要添加Controller扫描器
     -->
     <context:component-scan base-package="com.yazao.springmvc.controller"></context:component-scan>
+    <context:component-scan base-package="com.yazao.ssm.controller"></context:component-scan>
 
 
     <!--
