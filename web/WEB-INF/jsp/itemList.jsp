@@ -9,9 +9,10 @@
 <title>查询商品列表</title>
 </head>
 <body> 
-<form action="${pageContext.request.contextPath }/item/queryitem.action" method="post">
+<form action="${pageContext.request.contextPath }/showlist.action" method="post">
 查询条件：
 <table width="100%" border=1>
+<tr><td>商品名称</td><td><input name="items.name"/></td><td>商品价格</td><td><input name="items.price"/></td></tr>
 <tr>
 <td><input type="submit" value="查询"/></td>
 </tr>
