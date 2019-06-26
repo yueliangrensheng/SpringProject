@@ -50,6 +50,23 @@
     <!-- 注解驱动 替代了上面的 HandlerMapping 和 HandlerAdapter  -->
     <mvc:annotation-driven/>
 
+
+
+    <!-- 配置自定义转化器 begin -->
+<!--    <mvc:annotation-driven conversion-service="conversionService"/>-->
+<!--    &lt;!&ndash; 转换器配置 &ndash;&gt;-->
+<!--    <bean id="conversionService"-->
+<!--          class="org.springframework.format.support.FormattingConversionServiceFactoryBean">-->
+<!--        <property name="converters">-->
+<!--            <set>-->
+<!--                <bean class="com.yazao.ssm.converter.DateConverter"/>-->
+<!--            </set>-->
+<!--        </property>-->
+<!--    </bean>-->
+    <!-- 配置自定义转化器 end -->
+
+
+
     <!--
         配置 视图解析器 的前缀和后缀。目的：在 ModelAndView 中页面跳转的简化
     -->
