@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,8 +32,8 @@ public class ItemController {
     //在QueryVo中定义一个属性 int [] ids，同样，也是可以接到 ids数据的。这是因为 只要满足 jsp页面的name值 和 形参中的定义相匹配，就可以填充数据
     //对于集合参数，只能绑定到POJO中，如果在形参中直接出现集合，辣么在jsp页面中的数据 映射不到 形参中的集合中。
     //RequestMapping: 多请求地址可同时指定到一个方法上；还可以指定多个请求方式
-    @RequestMapping(value = { "/showlist", "/showlist2"},method = {RequestMethod.GET,RequestMethod.POST})
-    public String showList(Model model, QueryVo queryVo, int [] ids, ArrayList<Items> itemsList) {
+    @RequestMapping(value = {"/showlist", "/showlist2"}, method = {RequestMethod.GET, RequestMethod.POST})
+    public String showList(Model model, QueryVo queryVo, int[] ids, ArrayList<Items> itemsList) {
 
         List<Items> allData = itemService.findAll(queryVo);
         model.addAttribute("itemList", allData); //这个 key == itemList 是在  itemList.jsp 页面中的
@@ -47,14 +51,38 @@ public class ItemController {
         return "editItem";
     }
 
-    //修改商品信息
+    //修改商品信息 --- 重定向
     @RequestMapping(value = "/updateitem")
     public String updateItem(Model model, Items items) {
         int index = itemService.update(items);
 
         if (index > 0) {
-            return "success";
+
+            //重定向 --- 通知浏览器，让浏览器重新发起请求，使用的是两个不同的request域
+//            return "redirect:showlist.action";
+
+            //请求转发 --- 浏览器保留原有的请求地址，使用的是同一个request域
+            return "forward:showlist.action";
         }
         return "";
+    }
+
+    //修改商品信息 -- 请求转发
+    @RequestMapping(value = "/updateitem")
+    public void updateItem(Model model, Items items, HttpServletRequest request, HttpServletResponse response) {
+        int index = itemService.update(items);
+
+        if (index > 0) {
+
+            // 如果想要跳转页面，只能使用servlet方式 --- 请求转发
+
+            try {
+                request.getRequestDispatcher("/WEB-INF/jsp/success.jsp").forward(request, response);
+            } catch (ServletException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
