@@ -20,8 +20,10 @@ public class ItemController {
     //展示商品列表界面
     //对应操作： /showlist.action
     // QueryVo queryVo : 这里是 绑定包装的POJO，数据来自 itemList.jsp的 查询条件：input标签的 items.name 和 items.price
+
+    //在QueryVo中定义一个属性 int [] ids，同样，也是可以接到 ids数据的。这是因为 只要满足 jsp页面的name值 和 形参中的定义相匹配，就可以填充数据
     @RequestMapping(value = "/showlist")
-    public String showList(Model model, QueryVo queryVo) {
+    public String showList(Model model, QueryVo queryVo,int [] ids) {
 
         List<Items> allData = itemService.findAll(queryVo);
         model.addAttribute("itemList", allData); //这个 key == itemList 是在  itemList.jsp 页面中的
