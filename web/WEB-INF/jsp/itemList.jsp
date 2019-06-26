@@ -9,7 +9,7 @@
     <title>查询商品列表</title>
 </head>
 <body>
-<form action="${pageContext.request.contextPath }/showlist.action" method="post">
+<form action="${pageContext.request.contextPath }/item/showlist.action" method="post">
     查询条件：
     <table width="100%" border=1>
         <tr>
@@ -48,7 +48,7 @@
                            value="<fmt:formatDate value="${item.createtime}" pattern="yyyy-MM-dd HH:mm:ss"/>"/></td>
                 <td><input name="itemsList[${status.index}].detail" value="${item.detail }"/></td>
 
-                <td><a href="${pageContext.request.contextPath }/itemEdit.action?id=${item.id}">修改</a></td>
+                <td><a href="${pageContext.request.contextPath }/item/itemEdit.action?id=${item.id}">修改</a></td>
 
             </tr>
         </c:forEach>

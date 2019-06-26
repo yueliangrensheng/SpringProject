@@ -7,12 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+// 在Controller类上添加 @RequestMapping注解后，需要 请求地址是 xxx/item/showlist.action 的才可以进入到这类的方法。
+@RequestMapping(value = "/item/")
 public class ItemController {
 
     @Autowired
@@ -24,7 +27,8 @@ public class ItemController {
 
     //在QueryVo中定义一个属性 int [] ids，同样，也是可以接到 ids数据的。这是因为 只要满足 jsp页面的name值 和 形参中的定义相匹配，就可以填充数据
     //对于集合参数，只能绑定到POJO中，如果在形参中直接出现集合，辣么在jsp页面中的数据 映射不到 形参中的集合中。
-    @RequestMapping(value = "/showlist")
+    //RequestMapping: 多请求地址可同时指定到一个方法上；还可以指定多个请求方式
+    @RequestMapping(value = { "/showlist", "/showlist2"},method = {RequestMethod.GET,RequestMethod.POST})
     public String showList(Model model, QueryVo queryVo, int [] ids, ArrayList<Items> itemsList) {
 
         List<Items> allData = itemService.findAll(queryVo);
