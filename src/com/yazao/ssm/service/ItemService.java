@@ -8,11 +8,11 @@ import java.util.List;
 
 public interface ItemService {
 
-	public List<Items> findAll();
+    public List<Items> findAll() throws Exception;
 
-	public Items findById(int itemId);
+    public Items findById(int itemId) throws Exception;
 
-	public int update(Items item);
+    public int update(Items item) throws Exception;
 
-	List<Items> findAll(QueryVo queryVo);
+    List<Items> findAll(QueryVo queryVo) throws Exception;
 }

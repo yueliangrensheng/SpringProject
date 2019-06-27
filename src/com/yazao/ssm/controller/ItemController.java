@@ -33,7 +33,7 @@ public class ItemController {
     //对于集合参数，只能绑定到POJO中，如果在形参中直接出现集合，辣么在jsp页面中的数据 映射不到 形参中的集合中。
     //RequestMapping: 多请求地址可同时指定到一个方法上；还可以指定多个请求方式
     @RequestMapping(value = {"/showlist", "/showlist2"}, method = {RequestMethod.GET, RequestMethod.POST})
-    public String showList(Model model, QueryVo queryVo, int[] ids, ArrayList<Items> itemsList) {
+    public String showList(Model model, QueryVo queryVo, int[] ids, ArrayList<Items> itemsList) throws Exception{
 
         List<Items> allData = itemService.findAll(queryVo);
         model.addAttribute("itemList", allData); //这个 key == itemList 是在  itemList.jsp 页面中的
@@ -45,7 +45,7 @@ public class ItemController {
     //展示修改界面
     //对应修改操作： itemEdit.action?id=xx
     @RequestMapping(value = "/itemEdit")
-    public String showItemEdit(Model model, @RequestParam(value = "id") int itemId) {
+    public String showItemEdit(Model model, @RequestParam(value = "id") int itemId) throws Exception{
         Items itemData = itemService.findById(itemId);
         model.addAttribute("item", itemData); // item这个key 是在  editItem.jsp 页面中
         return "editItem";
@@ -53,7 +53,7 @@ public class ItemController {
 
     //修改商品信息 --- 重定向
     @RequestMapping(value = "/updateitem")
-    public String updateItem(Model model, Items items) {
+    public String updateItem(Model model, Items items) throws Exception{
         int index = itemService.update(items);
 
         if (index > 0) {
@@ -68,21 +68,21 @@ public class ItemController {
     }
 
     //修改商品信息 -- 请求转发
-    @RequestMapping(value = "/updateitem")
-    public void updateItem(Model model, Items items, HttpServletRequest request, HttpServletResponse response) {
-        int index = itemService.update(items);
-
-        if (index > 0) {
-
-            // 如果想要跳转页面，只能使用servlet方式 --- 请求转发
-
-            try {
-                request.getRequestDispatcher("/WEB-INF/jsp/success.jsp").forward(request, response);
-            } catch (ServletException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+//    @RequestMapping(value = "/updateitem")
+//    public void updateItem(Model model, Items items, HttpServletRequest request, HttpServletResponse response) throws Exception{
+//        int index = itemService.update(items);
+//
+//        if (index > 0) {
+//
+//            // 如果想要跳转页面，只能使用servlet方式 --- 请求转发
+//
+//            try {
+//                request.getRequestDispatcher("/WEB-INF/jsp/success.jsp").forward(request, response);
+//            } catch (ServletException e) {
+//                e.printStackTrace();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
 }

@@ -7,37 +7,37 @@ import com.yazao.ssm.domain.ItemsExample;
 import org.apache.ibatis.annotations.Param;
 
 public interface ItemsMapper {
-    int countByExample(ItemsExample example);
+    int countByExample(ItemsExample example) throws Exception;
 
-    int deleteByExample(ItemsExample example);
+    int deleteByExample(ItemsExample example) throws Exception;
 
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(Integer id) throws Exception;
 
-    int insert(Items record);
+    int insert(Items record) throws Exception;
 
-    int insertSelective(Items record);
+    int insertSelective(Items record) throws Exception;
 
-    List<Items> selectByExampleWithBLOBs(ItemsExample example);
+    List<Items> selectByExampleWithBLOBs(ItemsExample example) throws Exception;
 
-    List<Items> selectByExample(ItemsExample example);
+    List<Items> selectByExample(ItemsExample example) throws Exception;
 
-    Items selectByPrimaryKey(Integer id);
+    Items selectByPrimaryKey(Integer id) throws Exception;
 
-    int updateByExampleSelective(@Param("record") Items record, @Param("example") ItemsExample example);
+    int updateByExampleSelective(@Param("record") Items record, @Param("example") ItemsExample example) throws Exception;
 
-    int updateByExampleWithBLOBs(@Param("record") Items record, @Param("example") ItemsExample example);
+    int updateByExampleWithBLOBs(@Param("record") Items record, @Param("example") ItemsExample example) throws Exception;
 
-    int updateByExample(@Param("record") Items record, @Param("example") ItemsExample example);
+    int updateByExample(@Param("record") Items record, @Param("example") ItemsExample example) throws Exception;
 
-    int updateByPrimaryKeySelective(Items record);
+    int updateByPrimaryKeySelective(Items record) throws Exception;
 
-    int updateByPrimaryKeyWithBLOBs(Items record);
+    int updateByPrimaryKeyWithBLOBs(Items record) throws Exception;
 
-    int updateByPrimaryKey(Items record);
+    int updateByPrimaryKey(Items record) throws Exception;
 
-    Items selectByName(String name);
+    Items selectByName(String name) throws Exception;
 
-    Items selectByPrice(Float price);
+    Items selectByPrice(Float price) throws Exception;
 
-    Items selectByNameAndPrice(@Param("name") String name, @Param("price") Float price);
+    Items selectByNameAndPrice(@Param("name") String name, @Param("price") Float price) throws Exception;
 }

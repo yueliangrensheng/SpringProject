@@ -51,20 +51,18 @@
     <mvc:annotation-driven/>
 
 
-
     <!-- 配置自定义转化器 begin -->
-<!--    <mvc:annotation-driven conversion-service="conversionService"/>-->
-<!--    &lt;!&ndash; 转换器配置 &ndash;&gt;-->
-<!--    <bean id="conversionService"-->
-<!--          class="org.springframework.format.support.FormattingConversionServiceFactoryBean">-->
-<!--        <property name="converters">-->
-<!--            <set>-->
-<!--                <bean class="com.yazao.ssm.converter.DateConverter"/>-->
-<!--            </set>-->
-<!--        </property>-->
-<!--    </bean>-->
+    <!--    <mvc:annotation-driven conversion-service="conversionService"/>-->
+    <!--    &lt;!&ndash; 转换器配置 &ndash;&gt;-->
+    <!--    <bean id="conversionService"-->
+    <!--          class="org.springframework.format.support.FormattingConversionServiceFactoryBean">-->
+    <!--        <property name="converters">-->
+    <!--            <set>-->
+    <!--                <bean class="com.yazao.ssm.converter.DateConverter"/>-->
+    <!--            </set>-->
+    <!--        </property>-->
+    <!--    </bean>-->
     <!-- 配置自定义转化器 end -->
-
 
 
     <!--
@@ -74,4 +72,13 @@
         <property name="prefix" value="/WEB-INF/jsp/"></property>
         <property name="suffix" value=".jsp"></property>
     </bean>
+
+
+    <!--
+        配置自定义的异常处理器
+
+        处理器异常解析器(org.springframework.web.servlet.HandlerExceptionResolver)只是一个接口
+     -->
+    <bean class="com.yazao.ssm.exception.ExceptionHandler"></bean>
+
 </beans>

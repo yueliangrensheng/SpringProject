@@ -18,23 +18,23 @@ public class ItemServiceImpl implements ItemService {
     public ItemsMapper itemsMapper;
 
     @Override
-    public List<Items> findAll() {
+    public List<Items> findAll() throws Exception{
         return itemsMapper.selectByExampleWithBLOBs(new ItemsExample());
     }
 
     @Override
-    public Items findById(int itemId) {
+    public Items findById(int itemId) throws Exception{
         return itemsMapper.selectByPrimaryKey(itemId);
     }
 
     @Override
-    public int update(Items item) {
+    public int update(Items item) throws Exception{
         int index = itemsMapper.updateByPrimaryKeySelective(item);
         return index;
     }
 
     @Override
-    public List<Items> findAll(QueryVo queryVo) {
+    public List<Items> findAll(QueryVo queryVo) throws Exception{
 
             if (queryVo == null) {
             return findAll();
