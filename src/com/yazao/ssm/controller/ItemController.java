@@ -9,13 +9,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 // 在Controller类上添加 @RequestMapping注解后，需要 请求地址是 xxx/item/showlist.action 的才可以进入到这类的方法。
@@ -33,7 +36,7 @@ public class ItemController {
     //对于集合参数，只能绑定到POJO中，如果在形参中直接出现集合，辣么在jsp页面中的数据 映射不到 形参中的集合中。
     //RequestMapping: 多请求地址可同时指定到一个方法上；还可以指定多个请求方式
     @RequestMapping(value = {"/showlist", "/showlist2"}, method = {RequestMethod.GET, RequestMethod.POST})
-    public String showList(Model model, QueryVo queryVo, int[] ids, ArrayList<Items> itemsList) throws Exception{
+    public String showList(Model model, QueryVo queryVo, int[] ids, ArrayList<Items> itemsList) throws Exception {
 
         List<Items> allData = itemService.findAll(queryVo);
         model.addAttribute("itemList", allData); //这个 key == itemList 是在  itemList.jsp 页面中的
@@ -45,7 +48,7 @@ public class ItemController {
     //展示修改界面
     //对应修改操作： itemEdit.action?id=xx
     @RequestMapping(value = "/itemEdit")
-    public String showItemEdit(Model model, @RequestParam(value = "id") int itemId) throws Exception{
+    public String showItemEdit(Model model, @RequestParam(value = "id") int itemId) throws Exception {
         Items itemData = itemService.findById(itemId);
         model.addAttribute("item", itemData); // item这个key 是在  editItem.jsp 页面中
         return "editItem";
@@ -53,7 +56,26 @@ public class ItemController {
 
     //修改商品信息 --- 重定向
     @RequestMapping(value = "/updateitem")
-    public String updateItem(Model model, Items items) throws Exception{
+    public String updateItem(Model model, Items items, MultipartFile pictureFile, HttpServletRequest request) throws Exception {
+        String root = request.getServletContext().getRealPath("/");
+        //root =  /Users/xxx/Documents/work/JavaWebProject/SpringProject/out/artifacts/SpringProject_war_exploded/
+        if (pictureFile != null && !pictureFile.isEmpty()) {
+            //保存文件到项目工程目录：res/pic
+            try {
+                String originalFilename = pictureFile.getOriginalFilename();
+                String fileName = UUID.randomUUID().toString();
+                String ext = originalFilename.substring(originalFilename.lastIndexOf("."));
+                pictureFile.transferTo(new File(root + "res/pic/" + (fileName + ext)));
+
+                items.setPic(fileName + ext);
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+
+            }
+        }
+
+
         int index = itemService.update(items);
 
         if (index > 0) {

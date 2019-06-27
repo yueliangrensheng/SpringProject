@@ -81,4 +81,22 @@
      -->
     <bean class="com.yazao.ssm.exception.ExceptionHandler"></bean>
 
+
+    <!--
+        文件上传配置 - 文件解析器
+
+        这个id="multipartResolver" 是固定值；因为，查看源码发现：SpringMVC容器的前端控制器DispatcherServlet类中，在获取
+        MultipartResolver对象时候：this.multipartResolver = (MultipartResolver)context.getBean("multipartResolver", MultipartResolver.class);
+    -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!--
+            设置文件上传的最大size限制 为 5MB = 5 * 1024 * 1024
+        -->
+        <property name="maxUploadSize" value="5242880"></property>
+        <!--  设置默认编码  -->
+        <property name="defaultEncoding" value="utf-8"></property>
+
+    </bean>
+
+
 </beans>

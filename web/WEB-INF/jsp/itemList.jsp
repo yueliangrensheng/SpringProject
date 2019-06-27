@@ -29,6 +29,7 @@
             <td>商品名称</td>
             <td>商品价格</td>
             <td>生产日期</td>
+            <td>商品图片</td>
             <td>商品描述</td>
             <td>操作</td>
         </tr>
@@ -36,17 +37,41 @@
             <tr>
                 <td><input type="checkbox" name="ids" value="${item.id }"/></td>
                 <td><input name="itemsList[${status.index}].name" value="${item.name }"/></td>
-                <%--
-                      关于 name ="itemsList[${status.index}].name" 格式定义
+                    <%--
+                          关于 name ="itemsList[${status.index}].name" 格式定义
 
-                      在Controller中，定义的形参 QueryVo类中定义了 ArrayList<Items> itemsList 属性，来接受 JSP页面的数据。
+                          在Controller中，定义的形参 QueryVo类中定义了 ArrayList<Items> itemsList 属性，来接受 JSP页面的数据。
 
-                      辣么，这里jsp中应该定义成 itemsList[角标].name  ，这个角标也就是 上面 forEach的属性，使用varStatus来获取。
-                --%>
+                          辣么，这里jsp中应该定义成 itemsList[角标].name  ，这个角标也就是 上面 forEach的属性，使用varStatus来获取。
+                    --%>
                 <td><input name="itemsList[${status.index}].price" value="${item.price }"/></td>
                 <td><input name="itemsList[${status.index}].createtime"
                            value="<fmt:formatDate value="${item.createtime}" pattern="yyyy-MM-dd HH:mm:ss"/>"/></td>
                 <td><input name="itemsList[${status.index}].detail" value="${item.detail }"/></td>
+
+                <td>
+                        <%--                    <c:if test="${item.pic != null}">--%>
+                        <%--                        <img src="<%=request.getContextPath()%>/res/pic/${item.pic}" width="120" height="100">--%>
+                        <%--                    </c:if>--%>
+
+                        <%--
+                            上面的 c:if 没有 else 表达式，所以使用下面的
+
+                            c:choose
+                                    c:when  ---- if
+                                    c:otherwise ----- else
+                        --%>
+
+                    <c:choose>
+                        <c:when test="${item.pic != null}">
+                            <img src="<%=request.getContextPath()%>/res/pic/${item.pic}" width="120" height="100">
+                        </c:when>
+                        <c:otherwise>
+                            暂无图
+                        </c:otherwise>
+                    </c:choose>
+
+                </td>
 
                 <td><a href="${pageContext.request.contextPath }/item/itemEdit.action?id=${item.id}">修改</a></td>
 
