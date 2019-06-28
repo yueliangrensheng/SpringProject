@@ -9,16 +9,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Controller
 // 在Controller类上添加 @RequestMapping注解后，需要 请求地址是 xxx/item/showlist.action 的才可以进入到这类的方法。
@@ -107,4 +103,24 @@ public class ItemController {
 //            }
 //        }
 //    }
+
+
+    @RequestMapping(value = "/updateitemByAjax")
+    @ResponseBody // 作用是：把即将返回的对象转成json字符串 并且写回到浏览器
+    public Map<String, Object> updateItemByAjax(Items item) {
+
+        Map<String,Object> map = new HashMap<>();
+        try {
+            itemService.update(item);
+            map.put("success",true);
+            map.put("message","操作成功");
+        } catch (Exception e) {
+            map.put("success",false);
+            map.put("message","操作失败");
+        } finally {
+        }
+
+        return map;
+    }
+
 }
