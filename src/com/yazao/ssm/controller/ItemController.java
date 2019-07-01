@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.util.*;
 
@@ -115,18 +116,24 @@ public class ItemController {
     @ResponseBody // 作用是：把即将返回的对象转成json字符串 并且写回到浏览器
     public Map<String, Object> updateItemByAjax(@RequestBody Items item) {//RequestBody: 强制要求传入的参数类型是json
 
-        Map<String,Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
         try {
             itemService.update(item);
-            map.put("success",true);
-            map.put("message","操作成功");
+            map.put("success", true);
+            map.put("message", "操作成功");
         } catch (Exception e) {
-            map.put("success",false);
-            map.put("message","操作失败");
+            map.put("success", false);
+            map.put("message", "操作失败");
         } finally {
         }
 
         return map;
+    }
+
+    @RequestMapping("/login")
+    public String login(String username, String password, HttpSession session) {
+        session.setAttribute("username", username);
+        return "success";
     }
 
 }
