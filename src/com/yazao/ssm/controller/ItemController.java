@@ -6,10 +6,7 @@ import com.yazao.ssm.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -107,7 +104,7 @@ public class ItemController {
 
     @RequestMapping(value = "/updateitemByAjax")
     @ResponseBody // 作用是：把即将返回的对象转成json字符串 并且写回到浏览器
-    public Map<String, Object> updateItemByAjax(Items item) {
+    public Map<String, Object> updateItemByAjax(@RequestBody Items item) {//RequestBody: 强制要求传入的参数类型是json
 
         Map<String,Object> map = new HashMap<>();
         try {

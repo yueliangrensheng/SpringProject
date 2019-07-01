@@ -15,8 +15,10 @@
             $.ajax({
                 url:'${pageContext.request.contextPath }/item/updateitemByAjax.action',
                 type:'post',
-                data:$("#itemForm").serialize(),
+                // data:$("#itemForm").serialize(),
+                data:'{"id":23,"name":"yueliangrensheng"}',
                 dataType:'json',
+                contentType:'application/json;charset=utf-8',
                 success:function(data){
 // 			 data :{"success":true|false,"message":"操作成功"|“操作失败”}
                     if(data.success){
