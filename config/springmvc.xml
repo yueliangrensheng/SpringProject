@@ -99,4 +99,20 @@
     </bean>
 
 
+    <!--
+
+            直接访问静态资源：http://localhost:8080/SpringProject/js/jquery-1.4.4.min.js 时候，
+
+            会报错： Failed to load resource: the server responded with a status of 404 ()
+
+            因为：直接访问静态资源会去 SpringMVC容器中的处理器Controller方法中去寻找相匹配的方法，如果找不到就会报错。
+
+
+
+            配置静态资源：直接访问 http://localhost:8080/SpringProject/js/jquery-1.4.4.min.js 时候，会直接去 js目录下查找相应的文件，而不去 SpringMVC容器的Controller处理器中去匹配方法。
+
+            mapping:映射的位置
+            location:请求地址
+          -->
+        <mvc:resources mapping="/js/**" location="/js/"></mvc:resources>
 </beans>

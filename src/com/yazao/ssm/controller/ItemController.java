@@ -47,6 +47,15 @@ public class ItemController {
         return "editItem";
     }
 
+    //展示修改界面
+    //对应修改操作： itemEdit/2
+    @RequestMapping(value = "/itemEdit/{id}")
+    public String showItemEdit2(Model model, @PathVariable(value = "id") int itemId) throws Exception {
+        Items itemData = itemService.findById(itemId);
+        model.addAttribute("item", itemData); // item这个key 是在  editItem.jsp 页面中
+        return "editItem";
+    }
+
     //修改商品信息 --- 重定向
     @RequestMapping(value = "/updateitem")
     public String updateItem(Model model, Items items, MultipartFile pictureFile, HttpServletRequest request) throws Exception {
