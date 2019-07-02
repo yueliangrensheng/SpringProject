@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yazao.mybatis.mapper.UserMapper">
+    <!--    id :  statementId
+            parameterType : 输入映射的参数类型（即 传入的参数类型）
+
+                            主要有：
+                                基本数据类型（包括 基本类型以及包装类、 java.lang.String ）
+                                POJO（即 javaBean）和 包装的POJO
+                                Map
+
+            returnType:  输出映射类型 （即 返回的数据类型）
+                        主要有：
+                             基本数据类型（包括 基本类型以及包装类、 java.lang.String ）
+                             POJO（即 javaBean）和 包装的POJO
+                             Map
+                             List
+
+
+                其中的
+                    int 替代 java.lang.Integer
+                    string 替代 java.lang.String
+
+
+            #{}: 表示 占位符。 如果传入的是字符串，在预编译时会自动带上单引号
+            ${}: 表示 链接符。 如果传入的是基本数据类型，辣么打括号中只能是value - -  ${value};
+                如果传入的是POJO或者Map类型，辣么大括号中只能写 属性名 或者 key名 - - ${username}/${key}
+
+      -->
+
+    <!--    根据用户Id查找 用户信息 -->
+    <select id="findUserById" parameterType="int" resultType="com.yazao.mybatis.pojo.User">
+        select * from user where id = #{id}
+    </select>
+
+    <!--    根据用户名 模糊查找 用户信息 -->
+    <select id="findUserByUsername" parameterType="string" resultType="com.yazao.mybatis.pojo.User">
+        <!--    '%#{username}%' 这样使用占位符的话，会导致报错， 这里应该使用链接符${value} -->
+        select * from user where username like '%${value}%'
+    </select>
+
+    <!--    新增一个用户 -->
+    <insert id="addUser" parameterType="com.yazao.mybatis.pojo.User">
+
+        <selectKey keyProperty="id" order="AFTER" resultType="int">
+            <!-- 返回当前事务最后产生的id值
+
+            LAST_INSERT_ID() 自动返回最后一个 INSERT 或 UPDATE 查询中 AUTO_INCREMENT 列设置的第一个表发生的值。
+            -->
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into user(username,birthday,sex,address) value (#{username},#{birthday},#{sex},#{address})
+    </insert>
+
+    <!--  根据用户Id  更新用户信息 -->
+    <update id="updateUserById" parameterType="com.yazao.mybatis.pojo.User">
+        <selectKey keyProperty="id" resultType="int" order="AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
+        update user set username = #{username}, sex = #{sex}, birthday = #{birthday}, address = #{address} where id = #{id}
+    </update>
+
+    <!--   根据用户Id 删除用户信息 -->
+    <delete id="deleteUserById" parameterType="int">
+        delete from user where id = #{id}
+    </delete>
+</mapper>

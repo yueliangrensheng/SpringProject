@@ -20,6 +20,7 @@
     </environments>
 
     <mappers>
-        <mapper resource="userMapper.xml"/>
+<!--        <mapper resource="userMapper.xml"/>-->
+        <mapper resource="com/yazao/mybatis/mapper/UserMapper.xml" />
     </mappers>
 </configuration>
