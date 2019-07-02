@@ -4,6 +4,39 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 
+
+    <!--
+             configuration标签下的子标签配置顺序如下：
+                properties - settings - typeAliases - typeHandlers - objectFactory - objectWrapperFactory - plugins - environments - databaseIdProvider - mappers
+    -->
+
+
+    <!--
+        properties 属性配置：
+            优先加载 <properties>标签下的配置，
+            其次记载 resource指定的外部配置；
+            如果两者都存在，<properties>标签下的配置 会被覆盖，即加载 resource指定的外部配置
+      -->
+    <properties resource="com/yazao/mybatis/mapper/jdbc.properties">
+        <property name="jdbc.driver" value="com.mysql.jdbc.Driver"/>
+        <property name="jdbc.url" value="jdbc:mysql://localhost:3306/mybatis?characterEncoding=utf-8"/>
+        <property name="jdbc.username" value="root"/>
+        <property name="jdbc.password" value="zsp8901"/>
+    </properties>
+
+
+    <!--
+        typeAliases 属性配置：
+            简化 sql映射文件中的 类型
+    -->
+    <typeAliases>
+        <typeAlias type="com.yazao.mybatis.pojo.User" alias="user"></typeAlias>
+        <!--
+            <package name="com.yazao.mybatis.pojo"/> 这种方式默认将 指定包路径下的所有文件的类名作为别名
+         -->
+    </typeAliases>
+
+
     <!--  和Spring整合后 environments配置将废除   -->
     <environments default="development">
         <environment id="development">
@@ -11,16 +44,27 @@
             <transactionManager type="JDBC"/>
             <!--  数据库连接池 -->
             <dataSource type="POOLED">
-                <property name="driver" value="com.mysql.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://localhost:3306/mybatis?characterEncoding=utf-8"/>
-                <property name="username" value="root"/>
-                <property name="password" value="zsp890"/>
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
             </dataSource>
         </environment>
     </environments>
 
     <mappers>
-<!--        <mapper resource="userMapper.xml"/>-->
-        <mapper resource="com/yazao/mybatis/mapper/UserMapper.xml" />
+        <!--        <mapper resource="userMapper.xml"/>-->
+
+        <!--
+             <mapper class="com.yazao.mybatis.mapper.UserMapper"/>
+             <package name="com.yazao.mybatis.mapper"/>
+
+             这两种形式要求是：
+              4)、接口和映射文件的名字必须保持一致
+              5)、接口和映射文件必须放在同一目录下
+
+        -->
+        <mapper resource="com/yazao/mybatis/mapper/UserMapper.xml"/>
+
     </mappers>
 </configuration>

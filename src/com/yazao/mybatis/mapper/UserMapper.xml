@@ -31,7 +31,8 @@
       -->
 
     <!--    根据用户Id查找 用户信息 -->
-    <select id="findUserById" parameterType="int" resultType="com.yazao.mybatis.pojo.User">
+    <!--  resultType 返回类型 使用的是 sqlMapperConfig.xml配置中的别名配置  -->
+    <select id="findUserById" parameterType="int" resultType="user">
         select * from user where id = #{id}
     </select>
 
@@ -59,7 +60,8 @@
         <selectKey keyProperty="id" resultType="int" order="AFTER">
             select LAST_INSERT_ID()
         </selectKey>
-        update user set username = #{username}, sex = #{sex}, birthday = #{birthday}, address = #{address} where id = #{id}
+        update user set username = #{username}, sex = #{sex}, birthday = #{birthday}, address = #{address} where id =
+        #{id}
     </update>
 
     <!--   根据用户Id 删除用户信息 -->
