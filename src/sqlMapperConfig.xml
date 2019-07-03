@@ -30,11 +30,14 @@
             简化 sql映射文件中的 类型
     -->
     <typeAliases>
-        <typeAlias type="com.yazao.mybatis.pojo.User" alias="user"></typeAlias>
-        <typeAlias type="com.yazao.mybatis.pojo.QueryVo" alias="queryVo"></typeAlias>
+<!--        <typeAlias type="com.yazao.mybatis.pojo.User" alias="user"></typeAlias>-->
+<!--        <typeAlias type="com.yazao.mybatis.pojo.QueryVo" alias="queryVo"></typeAlias>-->
+
+
         <!--
             <package name="com.yazao.mybatis.pojo"/> 这种方式默认将 指定包路径下的所有文件的类名作为别名
          -->
+        <package name="com.yazao.mybatis.pojo"/>
     </typeAliases>
 
 

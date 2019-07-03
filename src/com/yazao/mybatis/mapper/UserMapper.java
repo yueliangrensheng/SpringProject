@@ -1,5 +1,6 @@
 package com.yazao.mybatis.mapper;
 
+import com.yazao.mybatis.pojo.Person;
 import com.yazao.mybatis.pojo.QueryVo;
 import com.yazao.mybatis.pojo.User;
 
@@ -35,6 +36,8 @@ public interface UserMapper {
     public List<User> findUserByMap(Map map);
 
     public List<User> findUserByQueryVo(QueryVo queryVo);
+
+    public List<Person> findPersonById(int id);
 
     public void addUser(User user);
 

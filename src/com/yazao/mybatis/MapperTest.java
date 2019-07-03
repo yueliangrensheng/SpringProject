@@ -1,6 +1,7 @@
 package com.yazao.mybatis;
 
 import com.yazao.mybatis.mapper.UserMapper;
+import com.yazao.mybatis.pojo.Person;
 import com.yazao.mybatis.pojo.QueryVo;
 import com.yazao.mybatis.pojo.User;
 import org.apache.ibatis.io.Resources;
@@ -77,6 +78,16 @@ public class MapperTest {
         map.put("address","北京市");
 
         List<User> userList = userMapper.findUserByMap(map);
+        System.out.println(userList);
+        sqlSession.close();
+    }
+
+    @Test
+    public void testFindPersonById() throws IOException {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+
+        List<Person> userList = userMapper.findPersonById(29);
         System.out.println(userList);
         sqlSession.close();
     }

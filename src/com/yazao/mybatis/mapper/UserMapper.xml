@@ -89,4 +89,25 @@
     <delete id="deleteUserById" parameterType="int">
         delete from user where id = #{id}
     </delete>
+
+
+    <!--
+
+        resultMap 作用是： 手动配置  db的列名称  和 POJO的属性名称 相映射.
+
+        resultMap 和 resultType 不可共存。只能有一个。
+
+        如： Person类中的 user_name 和 gender 属性 分别对应 db中的 username 和 sex
+
+        这样即使POJO中的属性名和DB中的字段名不一致，也可以 手动配置来映射。
+
+     -->
+    <resultMap id="findUserByPersonResultMap" type="person">
+        <result property="user_name" column="username"></result>
+        <result property="gender" column="sex"></result>
+    </resultMap>
+
+    <select id="findPersonById" parameterType="int" resultMap="findUserByPersonResultMap">
+        select * from user where id=#{id}
+    </select>
 </mapper>
