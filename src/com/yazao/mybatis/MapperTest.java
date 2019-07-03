@@ -109,6 +109,22 @@ public class MapperTest {
     }
 
     @Test
+    public void testFindListByUser() throws IOException {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+
+
+        User user = new User();
+        user.setUsername("张");
+        user.setAddress("北京市");
+        user.setSex("1");
+
+        List<User> userList = userMapper.findListByUser(user);
+        System.out.println(userList);
+        sqlSession.close();
+    }
+
+    @Test
     public void testAddUser() throws IOException {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         UserMapper userMapper = sqlSession.getMapper(UserMapper.class);

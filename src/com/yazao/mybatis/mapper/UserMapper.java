@@ -39,6 +39,8 @@ public interface UserMapper {
 
     public List<Person> findPersonById(int id);
 
+    public List<User> findListByUser(User user);
+
     public void addUser(User user);
 
     public void updateUserById(User user);

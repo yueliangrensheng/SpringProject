@@ -110,4 +110,34 @@
     <select id="findPersonById" parameterType="int" resultMap="findUserByPersonResultMap">
         select * from user where id=#{id}
     </select>
+
+
+    <!--
+
+        动态sql - if条件判断
+
+
+        如果传入的映射参数 如果有 个别属性为 null 或者 '' ,辣么在查询条件时候，应当去除无效的条件判断。
+     -->
+    <select id="findListByUser" parameterType="user" resultType="user">
+
+        select * from user
+
+        <where>
+            <!-- where：去除多余的 and/or -->
+
+            <if test="username!=null and username != '' ">
+                and username like '%${username}%'
+            </if>
+
+            <if test="sex != null and sex != '' ">
+                and sex=#{sex}
+            </if>
+
+            <if test="address != null and address != '' ">
+                and address=#{address}
+            </if>
+
+        </where>
+    </select>
 </mapper>
