@@ -7,13 +7,13 @@
             parameterType : 输入映射的参数类型（即 传入的参数类型）
 
                             主要有：
-                                基本数据类型（包括 基本类型以及包装类、 java.lang.String ）
+                                基础数据类型（包括 基本类型以及包装类、 java.lang.String ）
                                 POJO（即 javaBean）和 包装的POJO
                                 Map
 
             returnType:  输出映射类型 （即 返回的数据类型）
                         主要有：
-                             基本数据类型（包括 基本类型以及包装类、 java.lang.String ）
+                             基础数据类型（包括 基本类型以及包装类、 java.lang.String ）
                              POJO（即 javaBean）和 包装的POJO
                              Map
                              List
@@ -36,10 +36,31 @@
         select * from user where id = #{id}
     </select>
 
+    <!--    根据用户Id查找 用户信息 -->
+    <!--  resultType 返回类型 使用的是 sqlMapperConfig.xml配置中的别名配置  -->
+    <select id="findUserById2" parameterType="int" resultType="map">
+        select * from user where id = #{id}
+    </select>
+
+    <!--  查询用户数量  -->
+    <select id="findUserCount" resultType="int">
+        select count(*) from user
+    </select>
+
     <!--    根据用户名 模糊查找 用户信息 -->
     <select id="findUserByUsername" parameterType="string" resultType="com.yazao.mybatis.pojo.User">
         <!--    '%#{username}%' 这样使用占位符的话，会导致报错， 这里应该使用链接符${value} -->
         select * from user where username like '%${value}%'
+    </select>
+
+    <!--    根据提供的信息 模糊查找 所有符合的用户信息 -->
+    <select id="findUserByMap" parameterType="map" resultType="user">
+        select * from user where username like '%${username}%' and sex =#{sex} and address=#{address}
+    </select>
+
+    <!--    根据提供的信息 模糊查找 所有符合的用户信息 -->
+    <select id="findUserByQueryVo" parameterType="queryVo" resultType="user">
+        select * from user where username like '%${user.username}%'
     </select>
 
     <!--    新增一个用户 -->

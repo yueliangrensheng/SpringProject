@@ -21,7 +21,7 @@
         <property name="jdbc.driver" value="com.mysql.jdbc.Driver"/>
         <property name="jdbc.url" value="jdbc:mysql://localhost:3306/mybatis?characterEncoding=utf-8"/>
         <property name="jdbc.username" value="root"/>
-        <property name="jdbc.password" value="zsp8901"/>
+        <property name="jdbc.password" value="zsp890"/>
     </properties>
 
 
@@ -31,6 +31,7 @@
     -->
     <typeAliases>
         <typeAlias type="com.yazao.mybatis.pojo.User" alias="user"></typeAlias>
+        <typeAlias type="com.yazao.mybatis.pojo.QueryVo" alias="queryVo"></typeAlias>
         <!--
             <package name="com.yazao.mybatis.pojo"/> 这种方式默认将 指定包路径下的所有文件的类名作为别名
          -->
