@@ -2,6 +2,7 @@ package com.yazao.mybatis;
 
 import com.yazao.mybatis.mapper.OrdersMapper;
 import com.yazao.mybatis.pojo.Orders;
+import com.yazao.mybatis.pojo.User;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -31,5 +32,13 @@ public class OrdersTest {
 
         List<Orders> ordersList = mapper.findOrdersList();
         System.out.println(ordersList);
+    }
+    @Test
+    public void testFindUserList(){
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        OrdersMapper mapper = sqlSession.getMapper(OrdersMapper.class);
+
+        List<User> userList = mapper.findUserList();
+        System.out.println(userList);
     }
 }

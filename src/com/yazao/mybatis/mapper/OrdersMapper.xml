@@ -18,6 +18,7 @@
             association
                 构建 一对一 关联关系
         -->
+        <!--   private User user; -->
         <association property="user" javaType="com.yazao.mybatis.pojo.User">
             <id property="id" column="user_id"></id>
             <result property="username" column="username"></result>
@@ -33,5 +34,34 @@
             select o.*,u.username,u.birthday,u.sex,u.address from orders o LEFT JOIN user u ON o.user_id = u.id
          -->
         select o.*,u.username,u.sex,u.birthday,u.address from orders o left join user u on o.user_id = u.id
+    </select>
+
+
+    <resultMap id="userResultMap" type="user">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="sex" column="sex"/>
+        <result property="birthday" column="birthday"/>
+        <result property="address" column="address"/>
+
+
+        <!--
+
+            collection
+                关联查询 之 一对多
+
+                ofType: 集合ordersList中包含的数据类型
+         -->
+        <!-- private List<Orders> ordersList; -->
+        <collection property="ordersList" ofType="orders">
+            <id property="id" column="oid"/>
+            <result property="user_id" column="id"></result>
+            <result property="number" column="number"></result>
+            <result property="createtime" column="createtime"></result>
+            <result property="note" column="note"></result>
+        </collection>
+    </resultMap>
+    <select id="findUserList" resultMap="userResultMap">
+        select  u.*,o.id oid,o.number,o.createtime,o.note from user u INNER JOIN orders o on u.id = o.user_id
     </select>
 </mapper>
