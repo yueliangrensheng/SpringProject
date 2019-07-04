@@ -30,8 +30,8 @@
             简化 sql映射文件中的 类型
     -->
     <typeAliases>
-<!--        <typeAlias type="com.yazao.mybatis.pojo.User" alias="user"></typeAlias>-->
-<!--        <typeAlias type="com.yazao.mybatis.pojo.QueryVo" alias="queryVo"></typeAlias>-->
+        <!--        <typeAlias type="com.yazao.mybatis.pojo.User" alias="user"></typeAlias>-->
+        <!--        <typeAlias type="com.yazao.mybatis.pojo.QueryVo" alias="queryVo"></typeAlias>-->
 
 
         <!--
@@ -69,6 +69,7 @@
 
         -->
         <mapper resource="com/yazao/mybatis/mapper/UserMapper.xml"/>
+        <mapper resource="com/yazao/mybatis/mapper/OrdersMapper.xml"/>
 
     </mappers>
 </configuration>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yazao.mybatis.mapper.OrdersMapper">
+
+
+    <resultMap id="ordersResultMap" type="orders">
+
+        <id property="id" column="id"></id>
+        <result property="user_id" column="user_id"></result>
+        <result property="number" column="number"></result>
+        <result property="createtime" column="createtime"></result>
+        <result property="note" column="note"></result>
+
+
+        <!--
+            association
+                构建 一对一 关联关系
+        -->
+        <association property="user" javaType="com.yazao.mybatis.pojo.User">
+            <id property="id" column="user_id"></id>
+            <result property="username" column="username"></result>
+            <result property="sex" column="sex"/>
+            <result property="birthday" column="birthday"/>
+            <result property="address" column="address"/>
+        </association>
+
+    </resultMap>
+
+    <select id="findOrdersList" resultMap="ordersResultMap">
+        <!--
+            select o.*,u.username,u.birthday,u.sex,u.address from orders o LEFT JOIN user u ON o.user_id = u.id
+         -->
+        select o.*,u.username,u.sex,u.birthday,u.address from orders o left join user u on o.user_id = u.id
+    </select>
+</mapper>
