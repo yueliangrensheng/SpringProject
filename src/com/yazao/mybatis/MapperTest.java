@@ -53,7 +53,7 @@ public class MapperTest {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
 
-       int count = userMapper.findUserCount();
+        int count = userMapper.findUserCount();
         System.out.println(count);
     }
 
@@ -73,9 +73,9 @@ public class MapperTest {
         UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
 
         Map<String, Object> map = new HashMap();
-        map.put("username","张");
-        map.put("sex","1");
-        map.put("address","北京市");
+        map.put("username", "张");
+        map.put("sex", "1");
+        map.put("address", "北京市");
 
         List<User> userList = userMapper.findUserByMap(map);
         System.out.println(userList);
@@ -120,6 +120,20 @@ public class MapperTest {
         user.setSex("1");
 
         List<User> userList = userMapper.findListByUser(user);
+        System.out.println(userList);
+        sqlSession.close();
+    }
+
+    @Test
+    public void testFindListByArray() throws IOException {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+
+
+        QueryVo queryVo = new QueryVo();
+        int[] ids = {1, 10, 29, 37};
+        queryVo.setIds(ids);
+        List<User> userList = userMapper.findUserByArray(queryVo);
         System.out.println(userList);
         sqlSession.close();
     }

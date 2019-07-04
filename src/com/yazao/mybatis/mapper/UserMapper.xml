@@ -120,7 +120,9 @@
         如果传入的映射参数 如果有 个别属性为 null 或者 '' ,辣么在查询条件时候，应当去除无效的条件判断。
      -->
     <select id="findListByUser" parameterType="user" resultType="user">
-
+    <!--
+        select * from user where username=#{username} and sex=#{sex} and address=#{address}
+     -->
         select * from user
 
         <where>
@@ -140,4 +142,21 @@
 
         </where>
     </select>
+
+
+    <!--
+        动态sql - foreach循环
+                可以循环数组也可以循环集合
+    -->
+    <select id="findUserByArray" parameterType="queryVo" resultType="user">
+
+        <!--      select * from user where id in (1,29,30) -->
+        select  * from user where id in
+
+        <foreach collection="ids" open="(" close=")" item="id" separator=",">
+            #{id}
+        </foreach>
+    </select>
+
+
 </mapper>

@@ -37,6 +37,8 @@ public interface UserMapper {
 
     public List<User> findUserByQueryVo(QueryVo queryVo);
 
+    public List<User> findUserByArray(QueryVo queryVo);
+
     public List<Person> findPersonById(int id);
 
     public List<User> findListByUser(User user);
