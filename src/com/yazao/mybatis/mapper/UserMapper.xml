@@ -120,11 +120,17 @@
         如果传入的映射参数 如果有 个别属性为 null 或者 '' ,辣么在查询条件时候，应当去除无效的条件判断。
      -->
     <select id="findListByUser" parameterType="user" resultType="user">
-    <!--
-        select * from user where username=#{username} and sex=#{sex} and address=#{address}
-     -->
+        <!--
+            select * from user where username=#{username} and sex=#{sex} and address=#{address}
+         -->
         select * from user
 
+        <!-- include 引用 sql片段  -->
+        <include refid="findUserWhere"/>
+    </select>
+
+    <!--  sql片段  -->
+    <sql id="findUserWhere">
         <where>
             <!-- where：去除多余的 and/or -->
 
@@ -141,7 +147,7 @@
             </if>
 
         </where>
-    </select>
+    </sql>
 
 
     <!--
@@ -151,7 +157,7 @@
     <select id="findUserByArray" parameterType="queryVo" resultType="user">
 
         <!--      select * from user where id in (1,29,30) -->
-        select  * from user where id in
+        select * from user where id in
 
         <foreach collection="ids" open="(" close=")" item="id" separator=",">
             #{id}
