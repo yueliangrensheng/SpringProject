@@ -76,15 +76,6 @@
         insert into user(username,birthday,sex,address) value (#{username},#{birthday},#{sex},#{address})
     </insert>
 
-    <!--  根据用户Id  更新用户信息 -->
-    <update id="updateUserById" parameterType="com.yazao.mybatis.pojo.User">
-        <selectKey keyProperty="id" resultType="int" order="AFTER">
-            select LAST_INSERT_ID()
-        </selectKey>
-        update user set username = #{username}, sex = #{sex}, birthday = #{birthday}, address = #{address} where id =
-        #{id}
-    </update>
-
     <!--   根据用户Id 删除用户信息 -->
     <delete id="deleteUserById" parameterType="int">
         delete from user where id = #{id}
@@ -164,5 +155,40 @@
         </foreach>
     </select>
 
+
+    <!--
+
+        动态sql - set
+            去除更新操作中的最后一个逗号
+
+    -->
+
+    <!--  根据用户Id  更新用户信息 -->
+    <update id="updateUserById" parameterType="com.yazao.mybatis.pojo.User">
+        <!--
+               update user set username = #{username}, sex = #{sex}, birthday = #{birthday}, address = #{address} where id =#{id}
+        -->
+
+        update user
+
+        <set>
+
+            <if test="username != null and username != '' ">
+                username = #{username},
+            </if>
+            <if test="sex != null and sex != '' ">
+                sex = #{sex},
+            </if>
+            <if test="birthday != null ">
+                birthday = #{birthday},
+            </if>
+            <if test="address != null and address != ''  ">
+                address = #{address},
+            </if>
+        </set>
+
+        where id=#{id}
+
+    </update>
 
 </mapper>
