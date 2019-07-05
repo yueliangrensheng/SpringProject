@@ -33,9 +33,9 @@
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <!-- 数据库连接池 -->
         <property name="dataSource" ref="dataSource"/>
-        <!-- 加载mybatis的全局配置文件 -->
-        <property name="configLocation" value="classpath:SqlMapConfig.xml"/>
-        <!-- 设置 sql 映射文件中的 别名  -->
+        <!-- 加载mybatis的全局配置文件   代理方式后所有的内容都通过spring容器来管理 ，这里就不再需要加载sqlMapConfig.xml -->
+<!--        <property name="configLocation" value="classpath:SqlMapConfig.xml"/>-->
+        <!-- 设置 sql 映射文件中的对象 别名  -->
         <property name="typeAliasesPackage" value="com.yazao.mybatis_spring.pojo"></property>
     </bean>
 
@@ -46,6 +46,29 @@
            UserDaoImpl 的父类 SqlSessionDaoSupport 中定义的属性 需要 sqlSessionFactory 属性
         -->
         <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+    </bean>
+
+
+    <!--   mybatis整合spring DAO层开发之代理方式   -->
+    <!--    用来生成 代理对象的工厂类 -->
+
+    <!--  第一种方式：  缺点：只能给 一个接口产生代理对象，不符合实际开发，所以这种方式 生成代理对象 不可用   -->
+    <!--    <bean class="org.mybatis.spring.mapper.MapperFactoryBean">-->
+    <!--        &lt;!&ndash;-->
+    <!--           MapperFactoryBean 的父类也是 SqlSessionDaoSupport 中定义的属性 需要 sqlSessionFactory 属性-->
+    <!--        &ndash;&gt;-->
+    <!--        <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>-->
+    <!--        &lt;!&ndash;-->
+    <!--            指定给 哪一个接口 产生代理对象-->
+    <!--            缺点：只能给 一个接口产生代理对象，不符合实际开发，所以这种方式 生成代理对象 不可用-->
+    <!--         &ndash;&gt;-->
+    <!--        <property name="mapperInterface" value="com.yazao.mybatis_spring.mapper.UserMapper"></property>-->
+    <!--    </bean>-->
+
+    <!--  第二种方式： 推荐  -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--    代理对象的 包路径 扫描器     -->
+        <property name="basePackage" value="com.yazao.mybatis_spring.mapper"></property>
     </bean>
 
 </beans>
